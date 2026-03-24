@@ -1,8 +1,9 @@
 import express from 'express';
 import connectDB from './config/db.js';
-import authorRoutes from './routes/author.route.js'
-import bookRoutes from './routes/book.route.js'
-import studentRoutes from './routes/student.route.js'
+import authorRoutes from './routes/author.route.js';
+import bookRoutes from './routes/book.route.js';
+import studentRoutes from './routes/student.route.js';
+import attendantRoutes from './routes/attendant.route.js';
 
 const app = express();
 const PORT = 3009;
@@ -13,6 +14,7 @@ app.use(express.json());
 app.use('/authors', authorRoutes);
 app.use('/books', bookRoutes);
 app.use('/students', studentRoutes);
+app.use('/attendants', attendantRoutes);
 
 app.get('/', (req, res) => {
     res.send('Library API is running');
