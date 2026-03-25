@@ -1,12 +1,17 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import authorRoutes from './routes/author.route.js';
 import bookRoutes from './routes/book.route.js';
 import studentRoutes from './routes/student.route.js';
 import attendantRoutes from './routes/attendant.route.js';
 
+
+dotenv.config();
+
 const app = express();
-const PORT = 3009;
+const PORT = process.env.PORT || 3000;
+
 
 await connectDB();
 

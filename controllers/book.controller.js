@@ -16,7 +16,7 @@ export const createBook = async (req, res) => {
 export const getAllBooks = async (req, res) => {
     try {
         const books = await Book.find();
-        res.status(200).json({  data: books})
+        res.status(200).json({ data: books })
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -25,12 +25,15 @@ export const getAllBooks = async (req, res) => {
 export const getOneBook = async (req, res) => {
     try {
         const { id } = req.params;
-        const book = await Book.findById(id);
-        
+        const book = await Book.findById(id)
+            .populate('authors')
+            .populate('borrowedBy')
+            .populate('issuedBy');
+
         if (!book) {
-            return res.status(404).json({ message: "Book not Found"})
+            return res.status(404).json({ message: "Book not Found" })
         }
-        res.status(200).json({ data: book})
+        res.status(200).json({ data: book })
     } catch (error) {
         res.status(500).json({ message: error.message })
     }
@@ -45,10 +48,10 @@ export const borrowBook = async (req, res) => {
         const book = await Book.findById(id);
 
         if (!book) {
-            return res.status(404).json({ message: "Book not Found"});
+            return res.status(404).json({ message: "Book not Found" });
         }
-        if (book.status === "OUT"){
-            return res.status(400).json({ message: "Book is currently checked out"})
+        if (book.status === "OUT") {
+            return res.status(400).json({ message: "Book is currently checked out" })
         }
 
         book.status = "OUT";
@@ -74,11 +77,11 @@ export const returnBook = async (req, res) => {
         const book = await Book.findById(id);
 
         if (!book) {
-            return res.status(404).json({ message: "Book not found"});
+            return res.status(404).json({ message: "Book not found" });
         }
 
-        if (book.status === "IN" ) {
-            return res.status(400).json({ message: "Book is current not checked out"});
+        if (book.status === "IN") {
+            return res.status(400).json({ message: "Book is current not checked out" });
         }
 
 
