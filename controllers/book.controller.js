@@ -39,6 +39,39 @@ export const getOneBook = async (req, res) => {
     }
 }
 
+export const updateBook = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const updatedBook = await Book.findByIdAndUpdate(id, req.body, {new: true});
+
+        if (!updatedBook) {
+            return res.status(404).json({message: "Book not Found"});
+        }
+
+        res.status(200).json({
+            message: "Book updated successfully",
+            data: updatedBook
+        })
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+}
+
+export const deleteBook = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedBook = await Book.findByIdAndDelete(id);
+
+        if (!deletedBook) {
+            return res.status(404).json({ message: "Book not found"})
+        }
+
+        res.status(200).json({message: "Book deleted successfully"});
+    } catch (error) {
+        res.status(500).json({ message: error.message})
+    }
+}
+
 
 export const borrowBook = async (req, res) => {
     try {

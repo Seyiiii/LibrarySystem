@@ -34,7 +34,8 @@ const BookSchema = new mongoose.Schema(
         },
 
         returnDate: {
-            type: Date
+            type: Date,
+            dafault: null
         }
     },
     {
