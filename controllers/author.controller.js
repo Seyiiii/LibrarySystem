@@ -40,7 +40,7 @@ export const getOneAuthor = async (req, res) => {
 export const updateAuthor = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedAuthor = await Author.findByIdAndUpdate(id, rew.body, { new: true })
+        const updatedAuthor = await Author.findByIdAndUpdate(id, req.body, { new: true })
 
         if (!updatedAuthor) {
             return res.status(404).json({ message: "Author not Found"})
