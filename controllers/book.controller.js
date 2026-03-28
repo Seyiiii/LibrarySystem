@@ -9,13 +9,29 @@ export const createBook = async (req, res) => {
             data: book
         })
     } catch (error) {
+
+        if (error.code === 11000) {
+            return res.status(400).json({
+                message: "A book with this ISBN already exists!"
+            });
+        }
         res.status(500).json({ message: error.message })
     }
 }
 
 export const getAllBooks = async (req, res) => {
     try {
-        const books = await Book.find();
+        const { title } = req.query;
+
+        let queryFilter = {};
+
+        if (title) {
+            queryFilter.title = {
+                $regex: title,
+                $options: 'i'
+            };
+        }
+        const books = await Book.find(queryFilter);
         res.status(200).json({ data: books })
     } catch (error) {
         res.status(500).json({ message: error.message })
