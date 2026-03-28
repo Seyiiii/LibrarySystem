@@ -64,7 +64,7 @@ npm start
 
 ## 📚 API Documentation
 
-[🔗 Click here to view the complete Postman API Documentation](hhttps://documenter.getpostman.com/view/50108928/2sBXinFVKN)
+[🔗 Click here to view the complete Postman API Documentation](https://documenter.getpostman.com/view/50108928/2sBXinFVKN)
 
 ### Core Endpoints
 
